@@ -8,34 +8,35 @@ import search_problems.SlidingTilePuzzle;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class SlidingPuzzleGBFS extends BaseSearch<ArrayList<Integer>, String>
+public class SlidingPuzzleGBFSHeuristic extends BaseSearch<ArrayList<Integer>, String>
 {
-    public SlidingPuzzleGBFS()
+
+    public SlidingPuzzleGBFSHeuristic()
     {
         super(new SlidingTilePuzzle(),
-                new SortedQueue<>(new CompareMissingTiles(new SlidingTilePuzzle())));
+                new SortedQueue<>(new CompareSum(new SlidingTilePuzzle())));
     }
 
     public static void main(String[] args) {
-        SlidingPuzzleGBFS agent = new SlidingPuzzleGBFS();
+        SlidingPuzzleGBFSHeuristic agent = new SlidingPuzzleGBFSHeuristic();
         agent.search();
     }
 
-    public static class CompareMissingTiles implements Comparator<Node<ArrayList<Integer>, String>>
-    {
+
+    public static class CompareSum implements Comparator<Node<ArrayList<Integer>, String>> {
         private final SlidingTilePuzzle problem;
-        public CompareMissingTiles(SlidingTilePuzzle problem){
+        public CompareSum (SlidingTilePuzzle problem){
             this.problem = problem;
         }
 
         @Override
         public int compare(Node<ArrayList<Integer>, String> o1, Node<ArrayList<Integer>, String> o2)
         {
-            if(problem.misplacedTiles(o1.getState())< problem.misplacedTiles(o2.getState()))
+            if(problem.sumOfDistance(o1.getState()) + o1.getPathCost() < problem.sumOfDistance(o2.getState()) + o2.getPathCost())
             {
                 return -1;
             }
-            else if (problem.misplacedTiles(o1.getState()) == problem.misplacedTiles(o2.getState()))
+            else if (problem.sumOfDistance(o1.getState()) + o1.getPathCost() == problem.sumOfDistance(o2.getState()) + o2.getPathCost())
             {
                 return 0;
             }
@@ -45,4 +46,3 @@ public class SlidingPuzzleGBFS extends BaseSearch<ArrayList<Integer>, String>
         }
     }
 }
-

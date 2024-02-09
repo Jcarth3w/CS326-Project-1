@@ -13,45 +13,14 @@ public class SlidingPuzzleAStar extends BaseSearch<ArrayList<Integer>, String>
     public SlidingPuzzleAStar()
     {
         super(new SlidingTilePuzzle(),
-                new SortedQueue<>(new CompareSum(new SlidingTilePuzzle())));
-    }
-
-    public SlidingPuzzleAStar(int i)
-    {
-        super(new SlidingTilePuzzle(),
                 new SortedQueue<>(new CompareMissingTiles(new SlidingTilePuzzle())));
     }
 
     public static void main(String[] args) {
         SlidingPuzzleAStar agent = new SlidingPuzzleAStar();
-        SlidingPuzzleAStar missingTileAgent = new SlidingPuzzleAStar(1);
         agent.search();
-        System.out.println("break");
-        missingTileAgent.search();
     }
 
-    public static class CompareSum implements Comparator<Node<ArrayList<Integer>, String>> {
-        private final SlidingTilePuzzle problem;
-        public CompareSum (SlidingTilePuzzle problem){
-            this.problem = problem;
-        }
-
-        @Override
-        public int compare(Node<ArrayList<Integer>, String> o1, Node<ArrayList<Integer>, String> o2)
-        {
-            if(problem.sumOfDistance(o1.getState()) + 1 < problem.sumOfDistance(o2.getState()) + 1)
-            {
-                return -1;
-            }
-            else if (problem.sumOfDistance(o1.getState()) + 1 == problem.sumOfDistance(o2.getState()))
-            {
-                return 0;
-            }
-            else{
-                return 1;
-            }
-        }
-    }
 
     public static class CompareMissingTiles implements Comparator<Node<ArrayList<Integer>, String>>
     {
@@ -63,11 +32,11 @@ public class SlidingPuzzleAStar extends BaseSearch<ArrayList<Integer>, String>
         @Override
         public int compare(Node<ArrayList<Integer>, String> o1, Node<ArrayList<Integer>, String> o2)
         {
-            if(problem.misplacedTiles(o1.getState())< problem.misplacedTiles(o2.getState()))
+            if(problem.misplacedTiles(o1.getState()) + o1.getPathCost() < problem.misplacedTiles(o2.getState()) + o2.getPathCost())
             {
                 return -1;
             }
-            else if (problem.misplacedTiles(o1.getState()) == problem.misplacedTiles(o2.getState()))
+            else if (problem.misplacedTiles(o1.getState()) + o1.getPathCost() == problem.misplacedTiles(o2.getState()) + o2.getPathCost())
             {
                 return 0;
             }
