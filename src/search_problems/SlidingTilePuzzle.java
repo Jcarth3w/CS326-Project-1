@@ -8,14 +8,23 @@ import java.util.List;
 
 public class SlidingTilePuzzle implements Problem<ArrayList<Integer>, String>
 {
-    private final int SIZE;
+    private int SIZE;
     //empty cell is 0
-    private final ArrayList<Integer> INITIAL_STATE = new ArrayList<>(List.of(7,2,4, 5,0,6, 8,3,1));
+    private ArrayList<Integer> INITIAL_STATE = new ArrayList<>(List.of(7,2,4, 5,0,6, 8,3,1));
 
-    private final ArrayList<Integer> GOAL_STATE = new ArrayList<>(List.of(0,1,2,3,4,5,6,7,8));
+    private ArrayList<Integer> GOAL_STATE = new ArrayList<>(List.of(0,1,2,3,4,5,6,7,8));
 
-    public SlidingTilePuzzle(){
+    public SlidingTilePuzzle()
+    {
         SIZE = (int)(Math.sqrt(INITIAL_STATE.size()));
+    }
+
+    public SlidingTilePuzzle(ArrayList<Integer> init, ArrayList<Integer> goal)
+    {
+        SIZE = init.size();
+        INITIAL_STATE = init;
+        GOAL_STATE = goal;
+
     }
 
     public ArrayList<Tuple<ArrayList<Integer>, String>> execution(ArrayList<Integer> currentState)
