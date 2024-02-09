@@ -16,6 +16,10 @@ public class SlidingPuzzleGBFS extends BaseSearch<ArrayList<Integer>, String>
                 new SortedQueue<>(new CompareMissingTiles(new SlidingTilePuzzle())));
     }
 
+    public SlidingPuzzleGBFS(SlidingTilePuzzle a) {
+        super(a, new SortedQueue<>(new SlidingPuzzleAStar.CompareMissingTiles(a)));
+    }
+
     public static void main(String[] args) {
         SlidingPuzzleGBFS agent = new SlidingPuzzleGBFS();
         agent.search();

@@ -17,6 +17,10 @@ public class SlidingPuzzleGBFSHeuristic extends BaseSearch<ArrayList<Integer>, S
                 new SortedQueue<>(new CompareSum(new SlidingTilePuzzle())));
     }
 
+    public SlidingPuzzleGBFSHeuristic(SlidingTilePuzzle s) {
+        super(s, new SortedQueue<>(new CompareSum(s)));
+    }
+
     public static void main(String[] args) {
         SlidingPuzzleGBFSHeuristic agent = new SlidingPuzzleGBFSHeuristic();
         agent.search();

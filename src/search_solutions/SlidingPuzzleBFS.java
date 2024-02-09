@@ -13,6 +13,10 @@ public class SlidingPuzzleBFS extends BaseSearch<ArrayList<Integer>, String>
         super(new SlidingTilePuzzle(), new FIFOQueue<>());
     }
 
+    public SlidingPuzzleBFS(SlidingTilePuzzle s) {
+        super(s, new FIFOQueue<>());
+    }
+
     public static void main(String[] args) {
         SlidingPuzzleBFS s = new SlidingPuzzleBFS();
         s.search();

@@ -14,6 +14,10 @@ public class SlidingPuzzleAStarHeuristic extends BaseSearch<ArrayList<Integer>, 
                 new SortedQueue<>(new CompareSum(new SlidingTilePuzzle())));
     }
 
+    public SlidingPuzzleAStarHeuristic(SlidingTilePuzzle s) {
+        super(s, new SortedQueue<>(new CompareSum(s)));
+    }
+
     public static void main(String[] args) {
         SlidingPuzzleAStarHeuristic agent = new SlidingPuzzleAStarHeuristic();
         agent.search();

@@ -21,7 +21,7 @@ public class SlidingTilePuzzle implements Problem<ArrayList<Integer>, String>
 
     public SlidingTilePuzzle(ArrayList<Integer> init, ArrayList<Integer> goal)
     {
-        SIZE = init.size();
+        SIZE = (int)(Math.sqrt(init.size()));
         INITIAL_STATE = init;
         GOAL_STATE = goal;
 
@@ -29,6 +29,7 @@ public class SlidingTilePuzzle implements Problem<ArrayList<Integer>, String>
 
     public ArrayList<Tuple<ArrayList<Integer>, String>> execution(ArrayList<Integer> currentState)
     {
+        //System.out.println(SIZE);
         int emptyCellPosition = -1;
         ArrayList<Tuple<ArrayList<Integer>, String>> possibleStates = new ArrayList<>();
 
@@ -42,8 +43,11 @@ public class SlidingTilePuzzle implements Problem<ArrayList<Integer>, String>
             }
         }
 
+        //System.out.println(emptyCellPosition);
         int r = emptyCellPosition / SIZE;
         int c = emptyCellPosition % SIZE;
+        //System.out.println(r);
+        //System.out.println(c);
 
         //can move up
         if(r > 0)
@@ -69,6 +73,7 @@ public class SlidingTilePuzzle implements Problem<ArrayList<Integer>, String>
             Tuple<ArrayList<Integer>, String> newStateAction;
 
             int downIndex = emptyCellPosition + SIZE;
+            //System.out.println(emptyCellPosition);
             int numInDownIndex = currentState.get(downIndex);
 
             newState.set(downIndex, 0);
@@ -146,7 +151,7 @@ public class SlidingTilePuzzle implements Problem<ArrayList<Integer>, String>
     {
         int count = 0;
 
-        for(int i=0; i<s.size(); i++)
+        for(int i=0; i<s.size() - 1; i++)
         {
             if(s.get(i) == 0){
                 continue;
